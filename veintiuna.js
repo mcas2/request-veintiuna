@@ -1,5 +1,11 @@
-const baraja = llenarBaraja()
+let baraja = llenarBaraja()
 console.log(baraja)
+baraja = barajar(baraja)
+console.log(baraja);
+
+function barajar(baraja) {
+    return baraja.sort(function(a, b){return 0.5 - Math.random()})
+}
 
 function llenarBaraja() {
     let cartas = []
