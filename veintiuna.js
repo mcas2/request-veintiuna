@@ -1,15 +1,45 @@
+const sc = require('prompt-sync')();
+
+let seHaPlantado = false
 let baraja = llenarBaraja()
 baraja = barajar(baraja)
-//console.log('Baraja recién barajada => ', baraja);
+// console.log('Baraja recién barajada => ', baraja);
 
 const manoJugador = []
 repartir(2, manoJugador)
 console.log('Mano del jugador => ', manoJugador)
-//console.log('Baraja tras repartir al jugador => ',baraja);
+// console.log('Baraja tras repartir al jugador => ',baraja);
+
+while (!seHaPlantado && !teHasPasao(manoJugador)) {
+    jugar()
+}
+
+if (seHaPlantado) {
+    console.log('Tienes un ', sumarValoresMano(manoJugador));
+} else {
+    console.log('Gana la casa chaval');
+}
+
+function sumarValoresMano(mano) {
+    let suma = 0
+    for (let i = 0; i < mano.length; i++) {
+        suma += mano[i]
+    }
+    return suma
+}
+
+function teHasPasao(mano) {
+    return sumarValoresMano(mano) > 21
+}
 
 function jugar() {
-    console.log('¿Quieres otra?');
-    
+    console.log(manoJugador);
+    const decision = sc('¿Quieres otra? (s/n)')
+    if (decision == 's') {
+        repartir(1, manoJugador)
+    } else {
+        seHaPlantado = true
+    }
 }
 
 function repartir(numCartas, mano) {
