@@ -74,7 +74,7 @@ function jugarCasa() {
     repartir(2, manoCasa);
     console.log('Mano de la casa => ', manoCasa);
 
-    while (sumarValoresMano(manoCasa) < 17) {
+    while (sumarValoresMano(manoCasa) < sumarValoresMano(manoJugador)) {
         repartir(1, manoCasa);
         console.log('Mano de la casa => ', manoCasa);
     }
