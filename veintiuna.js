@@ -6,18 +6,34 @@ baraja = barajar(baraja)
 // console.log('Baraja recién barajada => ', baraja);
 
 const manoJugador = []
+const manoCasa = []
 repartir(2, manoJugador)
+repartir(2, manoCasa)
 console.log('Mano del jugador => ', manoJugador)
+console.log('Mano del casa => ', manoCasa[0], "?")
 // console.log('Baraja tras repartir al jugador => ',baraja);
 
 while (!seHaPlantado && !teHasPasao(manoJugador)) {
     jugar()
+    if (seHaPlantado  && !teHasPasao(manoJugador)) {
+        juegaLaCasa()
+    }
 }
 
-if (seHaPlantado) {
-    console.log('Tienes un ', sumarValoresMano(manoJugador));
+if (!teHasPasao(manoCasa)) {
+    console.log('Gana la casa');
 } else {
-    console.log('Gana la casa chaval');
+    console.log('Victoria: tienes ', sumarValoresMano(manoJugador), ' y la casa ', sumarValoresMano(casa));
+}
+
+function juegaLaCasa() {
+    console.log('Mano casa desvelada => ', manoCasa);
+    let valorCasa = sumarValoresMano(manoCasa);
+    while (valorCasa < 17 || valorCasa < sumarValoresMano(manoJugador)) {
+        repartir(1, manoCasa)
+        console.log('Otra carta => ', manoCasa);
+        valorCasa = sumarValoresMano(manoCasa)
+    }
 }
 
 function sumarValoresMano(mano) {
